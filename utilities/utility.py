@@ -3,6 +3,11 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 import numbers
+import torch
+import torch.nn as nn
+from torchvision import transforms
+from torchvision import models
+import torch.nn.functional as F
 
 #transform=models.VGG16_Weights.IMAGENET1K_V1.transforms()
 IMAGENET_MEAN=torch.tensor([0.485, 0.456, 0.406],dtype=torch.float32).view(3,1,1) # we unsqueeze to support broadcasting. 3,H,W/ 3,1,1
