@@ -9,12 +9,13 @@ from torchvision import transforms
 from torchvision import models
 import torch.nn.functional as F
 
+#Utility functions
 #transform=models.VGG16_Weights.IMAGENET1K_V1.transforms()
 IMAGENET_MEAN=torch.tensor([0.485, 0.456, 0.406],dtype=torch.float32).view(3,1,1) # we unsqueeze to support broadcasting. 3,H,W/ 3,1,1
 IMAGENET_STD =torch.tensor([0.229, 0.224, 0.225],dtype=torch.float32).view(3,1,1 ) # we unsqueeze to support broadcasting. 3,H,W/ 3,1,1
 
 def pre_prcoess_PIL_to_np_to_tensor(PIL_image):
-  image= transforms.ToTensor()(PIL_image)
+  image= transforms.ToTensor()(PIL_image) # This moves image from [0,255] range to [0,1 ]range
 
   if image.ndim==4:
 
@@ -33,7 +34,7 @@ def pre_prcoess_PIL_to_np_to_tensor(PIL_image):
   return image
 
 
-def pyramid_ratio_generator(tensor_image):
+def pyramid_ratio_generator(tensor_image,number_of_pyramids,pyramid_ratio):
     threshold_size = 10  # Minimum acceptable size for the pyramid levels
     original_shape = tensor_image.shape[-2:]  # Assuming the input is (...., H, W)
 
@@ -56,7 +57,7 @@ def post_process_torch_to_numpy(tensor_image):
     tensor_image=tensor_image[0]
     tensor_image= (tensor_image * IMAGENET_STD) + IMAGENET_MEAN  # de-normalize
     numpy_image=np.moveaxis(tensor_image.detach().cpu().numpy(), 0, 2)
-    return np.clip(numpy_image, 0., 1.)
+    return (np.clip(numpy_image, 0., 1.) * 255).astype(np.uint8)
 
   else:
     IMAGENET_MEAN1 = IMAGENET_MEAN.unsqueeze(dim=0)
@@ -65,7 +66,7 @@ def post_process_torch_to_numpy(tensor_image):
     image=(tensor_image * IMAGENET_STD1)+IMAGENET_MEAN1
 
     numpy_image=np.moveaxis(image.detach().numpy(), 1, 3)
-    return numpy_image.clip(0., 1.)
+    return (np.clip(numpy_image, 0., 1.) * 255).astype(np.uint8)
 
 class CascadeGaussianSmoothing(nn.Module):
     def __init__(self, kernel_size, sigma):
