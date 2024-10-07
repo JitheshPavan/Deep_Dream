@@ -10,10 +10,12 @@ What I noticed during deep dreams, especially during w.r.t the initial layers, i
 
 ## How gradients work in PyTorch
 There are certain types of tensors known as leaf tensors. There are user-created tensors. These tensors have a special method known as requires_grad. If set to true, as the name suggests, it will get the ability to create computational graphs. Computational graphs keep track of operations. With the help of these graphs, PyTorch can calculate gradients during backpropagation. Any subsequent tensors created from leaf tensors with required_grad= True will also be set required_grad=True. This is necessary to create a computational graph and keep track of the gradients. But these will not be leaf tensors. So any tensor created from leaf tensors are not leaf tensors unless required_grad is set to false.
-   The computational graph is used to flow gradients when we call .backward(). With the help of a computational graph, backpropagation will be performed. Gradients will flow backward through the operations as specified by the computational graph. These will flow till our initial tensor (leaf tensor). Gradients are not retained if the tensor is not leaf. Thus, only initial tensors will have gradients. That is why they are called leaves. They do not have branches backward. They are the end/beginning. So leaf tensors are user-created tensors, are the starting points, and are the only ones capable of storing gradients. 
- However, there are cases when we need to keep the gradients of intermediary tensors. This is possible with .retain_grad() (This is a method unlike requires_grad, which is a boolean). To keep the gradients, a tensor has to be leaf ( requires_grad is presupposed since the computational graph is not formed without it), or the retain_grad() method has to be activated beforehand. It is useless to call retain_grad on leaf tensors since they are already required to preserve grad. 
 
- # Example
+The computational graph is used to flow gradients when we call .backward(). With the help of a computational graph, backpropagation will be performed. Gradients will flow backward through the operations as specified by the computational graph. These will flow till our initial tensor (leaf tensor). Gradients are not retained if the tensor is not leaf. Thus, only initial tensors will have gradients. That is why they are called leaves. They do not have branches backward. They are the end/beginning. So leaf tensors are user-created tensors, are the starting points, and are the only ones capable of storing gradients. 
+   
+However, there are cases when we need to keep the gradients of intermediary tensors. This is possible with .retain_grad() (This is a method unlike requires_grad, which is a boolean). To keep the gradients, a tensor has to be leaf ( requires_grad is presupposed since the computational graph is not formed without it), or the retain_grad() method has to be activated beforehand. It is useless to call retain_grad on leaf tensors since they are already required to preserve grad. 
+
+ #Example
  import torch
  l= torch.rand(2,2,3)
  k= l +2
