@@ -1,13 +1,17 @@
-#Utility functions
-from PIL import Image
-import numpy as np
-import matplotlib.pyplot as plt
-import numbers
 import torch
 import torch.nn as nn
 from torchvision import transforms
 from torchvision import models
 import torch.nn.functional as F
+
+#Image processing
+from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
+import numbers
+
+from tqdm import tqdm
+import math
 
 #Utility functions
 #transform=models.VGG16_Weights.IMAGENET1K_V1.transforms()
