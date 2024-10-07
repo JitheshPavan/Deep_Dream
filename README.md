@@ -17,11 +17,19 @@ However, there are cases when we need to keep the gradients of intermediary tens
 
  #Example
  import torch
+ 
  l= torch.rand(2,2,3)
+ 
  k= l +2
+ 
  k.requires_grad=True
+ 
  y=k **2 
+ 
  loss= y +1
+ 
  print(l.is_leaf,k.is_leaf,y.is_leaf, y.requires_grad) # True, True, False , True
+ 
  loss.sum().backward()
+ 
  print(y.grad, k.grad, l.grad) # None, Values, None with user warning. The computational graph began at k. 
