@@ -73,7 +73,7 @@ def post_process_torch_to_numpy(tensor_image):
     return (np.clip(numpy_image, 0., 1.) * 255).astype(np.uint8)
 
 class CascadeGaussianSmoothing(nn.Module):
-    def __init__(self, kernel_size, sigma):
+    def __init__(self, kernel_size, sigma,DEVICE):
         super().__init__()
 
         if isinstance(kernel_size, numbers.Number):
