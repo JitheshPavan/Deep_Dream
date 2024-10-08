@@ -15,7 +15,8 @@ The computational graph is used to flow gradients when we call .backward(). With
    
 However, there are cases when we need to keep the gradients of intermediary tensors. This is possible with .retain_grad() (This is a method unlike requires_grad, which is a boolean). To keep the gradients, a tensor has to be leaf ( requires_grad is presupposed since the computational graph is not formed without it), or the retain_grad() method has to be activated beforehand. It is useless to call retain_grad on leaf tensors since they are already required to preserve grad. 
 
- #Example
+ **Example**
+ 
  import torch
  
  l= torch.rand(2,2,3)
