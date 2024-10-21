@@ -1,4 +1,8 @@
-# deep_dream
+# Deep_Dream
+## TODO
+Currently rewriting the the script in c++ for improved computational speed
+
+## Theory
 <p align="center">
 <img src="https://github.com/JitheshPavan/deep_dream/blob/main/data/modified%20images/lion_output.png" alt="lion_output" width="400" height="300">
 </p>
