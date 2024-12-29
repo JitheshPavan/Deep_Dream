@@ -1,6 +1,5 @@
 # Deep_Dream
-## TODO
-Currently rewriting the script in C++ for improved computational speed
+
 
 ## Theory
 <p align="center">
@@ -43,3 +42,6 @@ However, there are cases when we need to keep the gradients of intermediary tens
  loss.sum().backward()
  
  print(y.grad, k.grad, l.grad) # None, Values, None with user warning. The computational graph began at k. 
+
+ ## TODO
+Currently rewriting the script in C++ for improved computational speed
