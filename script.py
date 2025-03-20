@@ -113,5 +113,9 @@ lr= 0.005 # for VGG
 # layer_name=('conv2d_4b', 'mixed_7a') # Facenet
 layer_name = (22,) # VGG16
 model = models.vgg16(weights= 'VGG16_Weights.IMAGENET1K_V1')
-image=deepdream_image_generator(Image.open('mantis.jpg'),PretrainedModel(model,layer_name, is_sequential= True)) # for facenet sequential is not true
+
+## IMage here 
+curr_image=Image.open('data/lion.jpg')
+##
+image=deepdream_image_generator(curr_image,PretrainedModel(model,layer_name, is_sequential= True)) # for facenet sequential is not true
 plt.imshow(image)
