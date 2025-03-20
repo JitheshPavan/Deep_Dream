@@ -10,7 +10,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import numbers
 
-from tqdm import tqdm
 import math
 
 #Utility functions
@@ -18,7 +17,7 @@ import math
 IMAGENET_MEAN=torch.tensor([0.485, 0.456, 0.406],dtype=torch.float32).view(3,1,1) # we unsqueeze to support broadcasting. 3,H,W/ 3,1,1
 IMAGENET_STD =torch.tensor([0.229, 0.224, 0.225],dtype=torch.float32).view(3,1,1 ) # we unsqueeze to support broadcasting. 3,H,W/ 3,1,1
 
-def pre_prcoess_PIL_to_np_to_tensor(PIL_image):
+def pre_process_PIL_to_np_to_tensor(PIL_image):
   image= transforms.ToTensor()(PIL_image) # This moves image from [0,255] range to [0,1 ]range
 
   if image.ndim==4:
