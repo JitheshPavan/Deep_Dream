@@ -16,7 +16,10 @@ Run the script
 ```bash
 python script.py
 ```
-
+If you wish to consider different image, go to the end of the script file and change the following line
+```bash
+curr_image=Image.open('data/lion.jpg')
+```
 ## Theory
 An AI Model is ultimately characterized by its structure: the layers, the operations, and the number of parameters. Model is what is unchanging throughout training. Even most of the hyperparameters are not really a characteristic of the model. The parameter does not have an inherent relation to the model, for parameters can be any number. In this perspective, the input and the parameters are not different. They are both numbers. They both can change. The model cannot differentiate between input and parameters. We impose categorization among them by only changing the parameters. 
 
