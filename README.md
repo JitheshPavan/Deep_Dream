@@ -3,7 +3,8 @@
 </p>
 
 <p align="center">
-<img src="https://github.com/JitheshPavan/deep_dream/blob/main/data/modified%20images/lion_output.png" alt="lion_output" width="300" height="300">
+<img src="https://github.com/JitheshPavan/Deep_Dream/blob/main/data/modified%20images/Lion.png" alt="lion_output" width="250" height="250">
+<img src="https://github.com/JitheshPavan/deep_dream/blob/main/data/modified%20images/lion_output.png" alt="lion_output" width="250" height="250">
 </p>
 
 ## How to Run the Script
@@ -27,8 +28,8 @@ For example, take an intermediate layer; during backpropagation, the layer recei
 
 ## Mantis
 <p align="center">
-<img src="https://github.com/JitheshPavan/deep_dream/blob/main/data/mantis.jpeg">
-<img src="https://github.com/JitheshPavan/deep_dream/blob/main/data/modified%20images/mantis_lr_0.001_iter_5_pyramratio_1.5_nop_4.png">
+<img src="https://github.com/JitheshPavan/deep_dream/blob/main/data/mantis.jpeg" width="250" height="250">
+<img src="https://github.com/JitheshPavan/deep_dream/blob/main/data/modified%20images/mantis_lr_0.001_iter_5_pyramratio_1.5_nop_4.png"  width="250" height="250" >
 </p>
                 
 What I noticed during deep dreams, especially during w.r.t the initial layers, is a differentiation of colors. Red, Blue, and Green. At every group of pixels, a specific primary color is maximized. This is why the pattern is psychedelic. The fundamental colors (3 arrays) are being separated. At a specific pixel, a color is maximized (It is gradient ascent, after all). The more activated a pixel is, the more it is affected.
