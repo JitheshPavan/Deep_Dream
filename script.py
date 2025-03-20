@@ -112,7 +112,6 @@ lr= 0.005 # for VGG
 # lr=0.5 # For facenet
 # layer_name=('conv2d_4b', 'mixed_7a') # Facenet
 layer_name = (22,) # VGG16
-model=torch.load("vgg16_truncated.pth",weights_only=False)
-model.eval()
+model = models.vgg16(weights= 'VGG16_Weights.IMAGENET1K_V1')
 image=deepdream_image_generator(Image.open('mantis.jpg'),PretrainedModel(model,layer_name, is_sequential= True)) # for facenet sequential is not true
 plt.imshow(image)
