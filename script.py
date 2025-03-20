@@ -12,7 +12,12 @@ import numbers
 
 import math
 
+import sys
+sys.path.append('deep_dream/utilities')
 
+from utility import *
+
+     
 device= torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def deepdream_image_generator(PIL_image,model):
@@ -111,4 +116,3 @@ model=torch.load("vgg16_truncated.pth",weights_only=False)
 model.eval()
 image=deepdream_image_generator(Image.open('mantis.jpg'),PretrainedModel(model,layer_name, is_sequential= True)) # for facenet sequential is not true
 plt.imshow(image)
-    
