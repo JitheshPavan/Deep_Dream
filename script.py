@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 from torchvision import transforms
 import torch.nn.functional as F
+from torchvision import models
 
 #Image processing
 from PIL import Image
@@ -15,16 +16,16 @@ import math
 import sys
 sys.path.append('deep_dream/utilities')
 
-from utility import *
+from utilities import utility
 
      
 device= torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def deepdream_image_generator(PIL_image,model):
 
-  tensor_image= pre_prcoess_PIL_to_np_to_tensor(PIL_image) # (B,C,H,W)
+  tensor_image=  utility.pre_process_PIL_to_np_to_tensor(PIL_image) # (B,C,H,W)
   # tensor_image.requires_grad=True # user created tensors has to be manually set this. But we do not need this here. If we start the graph from here backward will compute gradient till here.
-  image_sizes= pyramid_ratio_generator(tensor_image,number_of_pyramids,pyramid_ratio)
+  image_sizes=  utility.pyramid_ratio_generator(tensor_image,number_of_pyramids,pyramid_ratio)
 
   for i in image_sizes:
 
@@ -41,8 +42,8 @@ def deepdream_image_generator(PIL_image,model):
 
       with torch.no_grad():
         tensor_image = torch.roll(tensor_image,(-h_shift, -w_shift),(2,3)) # this will output a leaf no requires_grad tensor breaking the computational graph connection to previous tensors
-
-  return post_process_torch_to_numpy(tensor_image)
+    print(f"Iteration {i+1}/{iterations} - Shift: ({h_shift}, {w_shift})", end='\r')
+  return  utility.post_process_torch_to_numpy(tensor_image)
 
 def gradient_ascent(tensor_image,model):
   tensor_image.requires_grad=True# the grads will fill till here. Retain_grad has to be called as method. requires_grad is called as func
@@ -57,7 +58,7 @@ def gradient_ascent(tensor_image,model):
   loss.backward()
   grad= tensor_image.grad.data
   sigma = (iterations + 1) / iterations * 2.0 + 0.5
-  smooth_grad = CascadeGaussianSmoothing(kernel_size=9, sigma=sigma,DEVICE=device)(grad)
+  smooth_grad =  utility.CascadeGaussianSmoothing(kernel_size=9, sigma=sigma,DEVICE=device)(grad)
   # print(f'data/grad={abs(tensor_image.std()/ smooth_grad.std())}')
   # lr=  10**-10 * abs(tensor_image.std()/ smooth_grad.std())
   with torch.no_grad():
@@ -119,3 +120,4 @@ curr_image=Image.open('data/lion.jpg')
 ##
 image=deepdream_image_generator(curr_image,PretrainedModel(model,layer_name, is_sequential= True)) # for facenet sequential is not true
 plt.imshow(image)
+plt.show()
